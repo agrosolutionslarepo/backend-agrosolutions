@@ -15,6 +15,9 @@ class SemillaService {
 
   public async updateSemilla(id: string, data: Partial<ISemilla>, idEmpresa: string): Promise<ISemilla | null> {
     const clean = sanitize({ ...data }) as Partial<ISemilla>;
+    if (typeof clean.cantidadSemilla === 'number' && clean.cantidadSemilla < 0) {
+      throw new Error('La cantidad de semilla no puede ser negativa');
+    }
     const semilla = await Semilla.findOneAndUpdate(
       { _id: id, empresa: idEmpresa },
       clean,
