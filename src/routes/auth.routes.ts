@@ -4,6 +4,7 @@ import Usuario from '../models/usuario';
 import {  UsuarioGoogleError } from '../errors/usuarioErrors';
 import { InvalidCredentialsError } from '../errors/loginErrors';
 import { sanitize } from '../helpers/sanitize';
+import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 
 dotenv.config();
