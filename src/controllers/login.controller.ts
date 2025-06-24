@@ -18,6 +18,22 @@ class LoginController {
         }
     }
 
+    public async loginConGoogle(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const { idToken } = req.body;
+
+    if (!idToken) {
+      res.status(400).json({ error: 'Token de Google no proporcionado' });
+      return;
+    }
+
+    try {
+      const result = await loginService.loginConGoogle(idToken);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
 }
 
 export default new LoginController();
