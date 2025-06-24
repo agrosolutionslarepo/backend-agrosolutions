@@ -11,3 +11,10 @@ export class UsuarioExistenteError extends Error {
       this.name = "UsuarioGoogleError";
     }
   }
+
+  export class UsuarioRegistradoLocalmenteError extends Error {
+    constructor() {
+      super('Este email ya tiene una cuenta asociada');
+      this.name = 'UsuarioRegistradoLocalmenteError';
+    }
+  }

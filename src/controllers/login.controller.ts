@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { loginService } from '../services/login.service';
+import { UsuarioRegistradoLocalmenteError } from '../errors/usuarioErrors';
 
 
 class LoginController {
@@ -18,7 +19,7 @@ class LoginController {
         }
     }
 
-    public async loginConGoogle(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public async loginConGoogle(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { idToken } = req.body;
 
     if (!idToken) {
@@ -30,7 +31,11 @@ class LoginController {
       const result = await loginService.loginConGoogle(idToken);
       res.json(result);
     } catch (error) {
-      next(error);
+      if (error instanceof UsuarioRegistradoLocalmenteError) {
+        res.status(409).json({ error: 'Ya existe una cuenta con este correo creada con contraseña.' });
+      } else {
+        next(error);
+      }
     }
   }
 
