@@ -92,7 +92,7 @@ class EmpresaService {
   public async crearEmpresaDesdeGoogle(nombreEmpresa: string, userId: string): Promise<{ empresa: IEmpresa; jwt: string }> {
     const yaExiste = await Empresa.exists({ nombreEmpresa });
     if (yaExiste) {
-      throw new EmpresaExistenteError;
+      throw new EmpresaExistenteError();
     }
   
     // Crear la empresa real
