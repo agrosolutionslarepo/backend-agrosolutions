@@ -75,8 +75,8 @@ class EmpresaController {
     }
 
     try {
-      const nuevaEmpresa = await empresaService.crearEmpresaDesdeGoogle(nombreEmpresa, req.user.id);
-      return res.status(201).json({ empresa: nuevaEmpresa });
+      const { empresa, jwt } = await empresaService.crearEmpresaDesdeGoogle(nombreEmpresa, req.user.id);
+      return res.status(201).json({ empresa, jwt });
     } catch (error: any) {
       next(error);
     }
