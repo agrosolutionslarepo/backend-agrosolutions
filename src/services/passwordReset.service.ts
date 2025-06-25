@@ -1,5 +1,6 @@
 import Usuario from '../models/usuario';
 import { randomString } from '../helpers/randomString';
+import { UsuarioGoogleError } from '../errors/usuarioErrors';
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 
@@ -8,6 +9,9 @@ class PasswordResetService {
     const usuario = await Usuario.findOne({ email });
     if (!usuario) {
       throw new Error('Usuario no encontrado');
+    }
+    if (usuario.authType === 'google' || usuario.googleId) {
+      throw new UsuarioGoogleError();
     }
     const codigo = randomString(6);
     usuario.codigoReset = codigo;
@@ -36,6 +40,9 @@ class PasswordResetService {
     const usuario = await Usuario.findOne({ email });
     if (!usuario || usuario.codigoReset !== codigo) {
       throw new Error('Código inválido');
+    }
+    if (usuario.authType === 'google' || usuario.googleId) {
+      throw new UsuarioGoogleError();
     }
     if (!usuario.resetExpira || usuario.resetExpira.getTime() < Date.now()) {
       throw new Error('Código expirado');
