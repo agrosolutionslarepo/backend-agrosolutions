@@ -11,3 +11,10 @@ export class UsuarioEliminadoError extends Error {
       this.name = "UsuarioEliminadoError";
   }
 }
+
+export class UsuarioGoogleLoginError extends Error {
+  constructor(message = 'El usuario debe iniciar sesión con Google') {
+    super(message);
+    this.name = 'UsuarioGoogleLoginError';
+  }
+}

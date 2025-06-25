@@ -185,7 +185,7 @@ class UsuarioService {
   
   public async getUsuarioById(id: string) {
     const cleanId = sanitize(id) as string;
-    return Usuario.findById(cleanId).select('nombre apellido nombreUsuario email administrador empresa fechaNacimiento');
+    return Usuario.findById(cleanId).select('nombre apellido nombreUsuario email administrador empresa fechaNacimiento authType');
   }
 
   public async setExpoToken(id: string, token: string) {

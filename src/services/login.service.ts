@@ -1,5 +1,5 @@
 import Usuario from '../models/usuario';
-import { InvalidCredentialsError, UsuarioEliminadoError } from '../errors/loginErrors';
+import { InvalidCredentialsError, UsuarioEliminadoError, UsuarioGoogleLoginError } from '../errors/loginErrors';
 import {  UsuarioGoogleError, UsuarioRegistradoLocalmenteError } from '../errors/usuarioErrors';
 import { sanitize } from '../helpers/sanitize';
 const jwt = require('jsonwebtoken');
@@ -26,6 +26,10 @@ class LoginService {
             // Verificar si el usuario está eliminado
             if (user.estado === false) {
                 throw new UsuarioEliminadoError();
+            }
+
+            if (user.authType === 'google') {
+                throw new UsuarioGoogleLoginError();
             }
 
             // Comparar contraseñas

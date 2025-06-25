@@ -17,6 +17,9 @@ const ERROR_HANDLERS = {
   UsuarioGoogleError: (res: Response, error: Error) =>
     res.status(409).json({ error: error.message }),
 
+  UsuarioGoogleLoginError: (res: Response, error: Error) =>
+    res.status(409).json({ error: error.message }),
+
   EmpresaExistenteError: (res: Response, error: Error) =>
     res.status(409).json({ error: error.message }),
 
