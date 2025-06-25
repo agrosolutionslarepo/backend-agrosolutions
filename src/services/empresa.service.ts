@@ -2,6 +2,7 @@ import { Types } from 'mongoose';
 import Empresa, { IEmpresa } from '../models/empresa';
 import Usuario from '../models/usuario';
 import { semillaService } from './semilla.service';
+import { EmpresaExistenteError } from "../errors/empresaErrors";
 import jwt from 'jsonwebtoken';
 import { IUserToken } from '../custrequest'; // Asegurate de tener esta interfaz
 import { sanitize } from '../helpers/sanitize';
@@ -91,7 +92,7 @@ class EmpresaService {
   public async crearEmpresaDesdeGoogle(nombreEmpresa: string, userId: string): Promise<{ empresa: IEmpresa; jwt: string }> {
     const yaExiste = await Empresa.exists({ nombreEmpresa });
     if (yaExiste) {
-      throw new Error('El nombre de empresa ya está en uso');
+      throw new EmpresaExistenteError;
     }
   
     // Crear la empresa real
