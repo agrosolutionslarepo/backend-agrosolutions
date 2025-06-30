@@ -34,7 +34,10 @@ const rainHeavyRule: Rule = (c) => {
       message: `⚠️ Se pronostican ${c.rain24h.toFixed(1)} mm en 24 h. Retrasar siembra/fertilización en lote ${c.lote.nombre}.`,
     };
   }
-  return null;
+  return {
+      id: `RAIN_HEAVY_${c.lote._id}`,
+      message: `⚠️ hola! te llego una notificación de agrosolution ${c.lote.nombre}.`,
+    };
 };
 
 /** 2. Viento + baja humedad → deriva de pulverización */
