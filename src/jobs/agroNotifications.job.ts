@@ -84,7 +84,7 @@ const gddRule: Rule = (c) => {
 // Job runner (schedule hourly)
 //--------------------------------------------------
 export function startAgroNotifyJob() {
-  cron.schedule('0 0 * * *', async () => {
+  cron.schedule('* * * * *', async () => {
     try {
       const lots = await getActiveLots();
       for (const lote of lots) {
